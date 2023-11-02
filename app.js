@@ -9,6 +9,7 @@ const bodyParser = require('body-parser')
 const FBJS_URL = 'http://172.16.3.159:420/';
 const AUTH_URL = 'http://172.16.3.159:420/oauth';
 const THIS_URL = 'http://localhost:3000/login';
+const PORT = 3069;
 
 // Create an Express App
 const app = express();
@@ -116,4 +117,8 @@ app.get('/login', (req, res) => {
     };
 });
 
-app.listen(3000);
+app.listen(PORT, (err) => {
+    if (err) {
+        console.error(err);
+    }
+});
