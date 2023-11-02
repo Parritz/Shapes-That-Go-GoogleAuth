@@ -1,0 +1,111 @@
+<html>
+
+<body>
+
+    <canvas id="canvas"></canvas>
+
+    <center>
+        <div id="death_text">
+            <h1 id="death_t">YOU HAVE PASSED AWAY PEACEFULLY</h1>
+            <h2 id="score_t">Score: </h2>
+            <br><br>
+            <h3 id="retry_t">Press Space to Rety</h3>
+        </div>
+
+        <div id="death_overlay">
+        </div>
+    </center>
+
+    <script src="mathfunctions.js"></script>
+    <script src="collision.js"></script>
+    <script src="chunks.js"></script>
+    <script src="drawlevel.js"></script>
+    <script src="level_objects.js"></script>
+    <script src="Player.js"></script>
+    <script src="playercollisions.js"></script>
+    <script src="particle.js"></script>
+    <script src="explode.js"></script>
+    <script src="drawobjects.js"></script>
+    <script src="chunk.js"></script>
+    <script src="findLongestSubArray.js"></script>
+    <script src="cookies.js"></script>
+    <script src="index.js"></script>
+
+    <style>
+        canvas {
+
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            image-rendering: pixelated;
+            z-index: -1;
+
+        }
+
+        body {
+
+            overflow: hidden;
+
+        }
+
+        #death_overlay {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-color: #8a0303;
+            opacity: 0.8;
+            visibility: hidden;
+            z-index: -1;
+
+        }
+
+        @font-face {
+            font-family: CoolFont;
+            src: url(fonts/pixelfont.TTF)
+        }
+
+        #death_text {
+            font-size: 1vw;
+            margin-top: 15%;
+            text-align: center;
+            visibility: hidden;
+            font-family: CoolFont;
+        }
+
+        #cow {
+
+            position: absolute;
+            top: 50%;
+            left: 40%;
+
+        }
+
+        .myButton {
+            box-shadow: inset 0px 34px 0px -15px #b54b3a;
+            background: linear-gradient(to bottom, #a73f2d 5%, #b34332 100%);
+            background-color: #a73f2d;
+            border: 1px solid #241d13;
+            display: inline-block;
+            cursor: pointer;
+            color: #ffffff;
+            font-family: Arial;
+            font-size: 28px;
+            font-weight: bold;
+            padding: 31px 76px;
+            text-decoration: none;
+            text-shadow: 0px -1px 0px #7a2a1d;
+            position: absolute;
+            top: 50%;
+            left: 43%;
+        }
+
+        .myButton:hover {
+            background: linear-gradient(to bottom, #b34332 5%, #a73f2d 100%);
+            background-color: #b34332;
+        }
+    </style>
+</body>
+
+</html>

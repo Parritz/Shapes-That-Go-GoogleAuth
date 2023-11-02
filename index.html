@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shapes That Go!</title>
+</head>
+
+<body>
+    <center>
+        <div id="titlescreen">
+            <h1 class="titletext">SHAPES THAT GO!</h1>
+            <h3 class="cooltext" id="highscoretext">HIGHSCORE: </h3>
+            <br><br><br><br><br><br><br><br><br><br><br>
+            <a href="game.html">
+                <h2 class="option">PLAY</h2>
+            </a>
+            <a href="howplay.html">
+                <h2 class="option">HOW PLAY?</h2>
+            </a>
+            <a href="credits.html">
+                <h2 class="option">CREDITS</h2>
+            </a>
+        </div>
+    </center>
+
+    <script src="cookies.js"></script>
+    <script>
+
+        document.getElementById('highscoretext').innerHTML = "HIGHSCORE: &nbsp;&nbsp;" + getCookie("highscore");
+
+    </script>
+
+    <style>
+        @font-face {
+            font-family: CoolFont;
+            src: url(fonts/pixelfont.TTF)
+        }
+
+        #titlescreen {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-image: url("images/newtitle.png");
+            /*animation: translate 15s infinite linear;*/
+        }
+
+        .cooltext {
+            font-family: CoolFont;
+            user-select: none;
+            font-size: 1vw;
+        }
+
+        br {
+            user-select: none;
+        }
+
+        a:link {
+            text-decoration: none !important;
+        }
+
+        @keyframes upDown {
+            to {
+                transform: translatey(10px);
+            }
+        }
+
+        @keyframes translate {
+            to {
+                transform: translatex(900%);
+            }
+        }
+
+        .titletext {
+            font-family: CoolFont;
+            font-size: 2.5vw;
+            user-select: none;
+            animation: upDown 0.5s alternate infinite ease-in-out;
+        }
+
+        .option {
+            font-family: CoolFont;
+            font-size: 2vw;
+            user-select: none;
+            color: #000;
+        }
+
+        .option:hover {
+            font-family: CoolFont;
+            font-size: 2vw;
+            user-select: none;
+            color: #fff203;
+        }
+    </style>
+</body>
+
+</html>
