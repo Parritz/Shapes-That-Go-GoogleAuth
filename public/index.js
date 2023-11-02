@@ -7,7 +7,7 @@ stage.imageSmoothingEnabled = false;
 var screenShake = false;
 var shakeAmount = 15;
 //const globalScrollSpd = 0;
-var globalGravity = 5.1;
+const globalGravity = 5;
 //const globalGravity = 0;
 //const globalGravity = 3;
 
@@ -15,9 +15,8 @@ var globalGravity = 5.1;
 var blockSize = Math.round(stage.canvas.height / levels[0].length);
 //const blockSize = Math.round(stage.canvas.width/22.95);
 
-//const scrollSpd = blockSize/3.2;
-//const scrollSpd = blockSize/2.5;
-const scrollSpd = Math.round(stage.canvas.width / 71);
+const scrollSpd = blockSize / 3;
+//const scrollSpd = Math.round(stage.canvas.width / 75);
 var globalScrollSpd = scrollSpd;
 
 var chunks = [new Chunk(startingChunk, 0, 0, blockSize)]
@@ -55,11 +54,13 @@ var textSize = Math.round(stage.canvas.width / 35);
 var powerupX = stage.canvas.width / 1.2;
 var powerupY = 100;
 
-if (getCookie("highscore") != "") {
-    highscore = Number(getCookie("highscore"));
-} else {
-    highscore = 0;
-}
+// Get highscore from game.ejs now instead of cookie
+
+// if (getCookie("highscore") != "") {
+//     highscore = Number(getCookie("highscore"));
+// } else {
+//     highscore = 0;
+// }
 
 var canRestart = false
 
@@ -89,7 +90,7 @@ let gamepadIndex;
 let gamepadConnected;
 let gamepad;
 window.addEventListener('gamepadconnected', (event) => {
-	gamepadIndex = event.gamepad.index;
+    gamepadIndex = event.gamepad.index;
     gamepad = event.gamepad;
     gamepadConnected = true;
     labels.push(new Label("GAMEPAD CONNECTED", stage.canvas.width / 4, stage.canvas.height / 2.5, 75, '', true));
@@ -110,7 +111,7 @@ window.addEventListener('gamepadconnected', (event) => {
 
 function buttonPressed(b) {
     if (typeof gamepad == 'object') {
-      return gamepad.buttons[b].pressed;
+        return gamepad.buttons[b].pressed;
     } else {
         return false;
     }
@@ -128,12 +129,9 @@ var lastTimestamp = 0;
 
 chunks[0].create();
 
-console.log("Don't even think about it")
-console.log("%cI will devour your flesh", 'font-weight: bold; color: red')
-
 function update(timestamp) {
 
-    var deltaTime = (timestamp - lastTimestamp)/15;
+    var deltaTime = (timestamp - lastTimestamp) / 15;
 
     stage.canvas.width = window.innerWidth;
     stage.canvas.height = window.innerHeight;
@@ -151,11 +149,7 @@ function update(timestamp) {
 
     gameTime++;
 
-    globalScrollSpd = Math.floor((scrollSpd + (gameTime/1000))); //Make scrollspeed speed up longer you play
-    
-    globalScrollSpd = globalScrollSpd * deltaTime;
-
-    globalGravity = globalGravity * deltaTime;
+    globalScrollSpd = Math.floor((scrollSpd + (gameTime / 1000))); //Make scrollspeed speed up longer you play
 
     var chunkRightSideX = latestChunk.chunkX + latestChunk.w;
     var chunkLeftSideX = latestChunk.chunkX;
@@ -176,7 +170,6 @@ function update(timestamp) {
         var randomLevel = Math.round(Math.random() * levels.length) - 1;
         randomLevel = randomLevel <= 0 ? 1 : randomLevel;
         //if (randomLevel == lastLevel) randomLevel = lastLevel === 0 ? randomLevel + 1 : randomLevel - 1;
-        //console.log("Last: " + lastLevel + "   Random: " + randomLevel);
         lastLevel = randomLevel;
         chunksTillBonus--;
         isBonus = chunksTillBonus <= 0;
@@ -232,9 +225,11 @@ function update(timestamp) {
 
     try {
         var outChunk = chunks.findIndex(chunk => chunk.blocks[0].x + chunk.w <= 0);
-    } catch {}
+    } catch {
+        console.error("EH I'M ERRORING HERE!");
+    }
 
-    if(outChunk !== -1){
+    if (outChunk !== -1) {
         chunks.splice(outChunk, 1);
     }
 
@@ -269,11 +264,10 @@ function update(timestamp) {
         player.physics(deltaTime);
         player.update();
         scoreCD--;
-
         testPlayerCollisions(player.currentChunk);
     } else {
         if (!player.exploded) { //Make player explode if the player has not already exploded
-            explode(30, player, 1);
+            explode(30, player, globalGravity);
             player.exploded = true;
             shakeScreen(250);
         }
@@ -284,14 +278,22 @@ function update(timestamp) {
         deathScreen.style.visibility = "visible";
         deathText.style.visibility = 'visible';
         if (score > highscore) {
-
+            highscore = score;
+            fetch("/submiths", {
+                method: "POST",
+                body: JSON.stringify({
+                    score: score
+                }),
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8"
+                }
+            });
             scoreText.innerHTML = 'SCORE: ' + score;
             deathText.style.visibility = 'visible';
             deathMsg.innerHTML = 'NEW HIGH SCORE!';
             deathMsg.style.color = 'rgb(' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ',' + Math.floor(Math.random() * 255) + ')';
-            setCookie("highscore", String(score), 400);
+            // setCookie("highscore", String(score), 400);
             setTimeout(function () { canRestart = true }, 1000);
-
         } else {
             scoreText.innerHTML = 'SCORE: ' + score;
             deathText.style.visibility = 'visible';

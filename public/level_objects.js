@@ -147,8 +147,6 @@ class Powerup {
         if(this.expires){
             this.expireTime--;
         }
-        //console.log('update');
-        
     }
 
     scroll(scrollSpd){

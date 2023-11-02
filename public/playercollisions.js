@@ -29,7 +29,7 @@ function testPlayerCollisions(currentChunk) {
 
     //Testing for player's head colliding with the bottom of a block.
     if (bottomBlockIndex !== -1) {
-        //console.log(currentChunk.blocks[bottomBlockIndex].type);
+        console.log(currentChunk.blocks[bottomBlockIndex].type);
         if (currentChunk.blocks[bottomBlockIndex].type == 'block') {
             player.y = currentChunk.blocks[bottomBlockIndex].y + currentChunk.blocks[bottomBlockIndex].h;
             player.yv = 0;
@@ -51,7 +51,7 @@ function testPlayerCollisions(currentChunk) {
 
     if (sideBlockIndex !== -1) {
         if (player.shield) {
-            explode(15, currentChunk.blocks[sideBlockIndex], 1);
+            explode(15, currentChunk.blocks[sideBlockIndex], globalGravity);
             currentChunk.blocks.splice(sideBlockIndex, 1);
             var sh = player.activePowerups[player.activePowerups.findIndex(sh => sh.type == 'shield')]
             sh.uses--;
@@ -74,7 +74,7 @@ function testPlayerCollisions(currentChunk) {
     if (player.shield) {
         shieldBlockIndex = currentChunk.blocks.findIndex(block => player.shieldCollision(block));
         if (shieldBlockIndex !== -1) {
-            explode(15, currentChunk.blocks[shieldBlockIndex], 1);
+            explode(15, currentChunk.blocks[shieldBlockIndex], globalGravity);
             currentChunk.blocks.splice(shieldBlockIndex, 1);
             var sh = player.activePowerups[player.activePowerups.findIndex(sh => sh.type == 'shield')]
             sh.uses--;
