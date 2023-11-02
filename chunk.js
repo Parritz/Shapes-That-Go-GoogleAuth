@@ -8,7 +8,7 @@ class Chunk {
 
         this.shieldChance = 25;
         this.doubleJumpChance = 40;
-        this.magnetChance = 10;
+        this.magnetChance = 30;
 
         this.OGX = x;
 

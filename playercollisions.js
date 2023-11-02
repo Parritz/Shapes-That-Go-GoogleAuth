@@ -51,7 +51,7 @@ function testPlayerCollisions(currentChunk) {
 
     if (sideBlockIndex !== -1) {
         if (player.shield) {
-            explode(15, currentChunk.blocks[sideBlockIndex], globalGravity);
+            explode(15, currentChunk.blocks[sideBlockIndex], 1);
             currentChunk.blocks.splice(sideBlockIndex, 1);
             var sh = player.activePowerups[player.activePowerups.findIndex(sh => sh.type == 'shield')]
             sh.uses--;
@@ -74,7 +74,7 @@ function testPlayerCollisions(currentChunk) {
     if (player.shield) {
         shieldBlockIndex = currentChunk.blocks.findIndex(block => player.shieldCollision(block));
         if (shieldBlockIndex !== -1) {
-            explode(15, currentChunk.blocks[shieldBlockIndex], globalGravity);
+            explode(15, currentChunk.blocks[shieldBlockIndex], 1);
             currentChunk.blocks.splice(shieldBlockIndex, 1);
             var sh = player.activePowerups[player.activePowerups.findIndex(sh => sh.type == 'shield')]
             sh.uses--;

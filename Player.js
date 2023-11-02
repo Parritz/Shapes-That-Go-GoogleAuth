@@ -67,8 +67,8 @@ class Player {
 
     physics(dt) {
 
-        var min = this.gravityDir == 1 ? -60 : -25;
-        var max = this.gravityDir == 1 ? 25 : 60;    
+        var min = this.gravityDir == 1 ? -65 : -25;
+        var max = this.gravityDir == 1 ? 25 : 65;    
 
         //console.log(this.yv);
 
