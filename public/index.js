@@ -7,7 +7,7 @@ stage.imageSmoothingEnabled = false;
 var screenShake = false;
 var shakeAmount = 15;
 //const globalScrollSpd = 0;
-const globalGravity = 5;
+var globalGravity = 5.1;
 //const globalGravity = 0;
 //const globalGravity = 3;
 
@@ -15,8 +15,8 @@ const globalGravity = 5;
 var blockSize = Math.round(stage.canvas.height / levels[0].length);
 //const blockSize = Math.round(stage.canvas.width/22.95);
 
-const scrollSpd = blockSize / 3;
-//const scrollSpd = Math.round(stage.canvas.width / 75);
+//const scrollSpd = blockSize / 3;
+const scrollSpd = Math.round(stage.canvas.width / 71);
 var globalScrollSpd = scrollSpd;
 
 var chunks = [new Chunk(startingChunk, 0, 0, blockSize)]
@@ -150,6 +150,10 @@ function update(timestamp) {
     gameTime++;
 
     globalScrollSpd = Math.floor((scrollSpd + (gameTime / 1000))); //Make scrollspeed speed up longer you play
+
+    globalScrollSpd = globalScrollSpd * deltaTime;
+
+    globalGravity = globalGravity * deltaTime;
 
     var chunkRightSideX = latestChunk.chunkX + latestChunk.w;
     var chunkLeftSideX = latestChunk.chunkX;
