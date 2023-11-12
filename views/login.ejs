@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shapes That Go!</title>
+</head>
+
+<body>
+    <input id="usernameInput"/>
+    <button onclick="login()">Login</button>
+
+    <script>
+        function login() {
+            const username = document.getElementById("usernameInput").value;
+            window.location.href = "/login/auth?username=" + encodeURIComponent(username);
+        }
+    </script>
+</body>
+
+</html>
