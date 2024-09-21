@@ -17,16 +17,25 @@ if (!fs.existsSync('data.json')) {
 const app = express();
 const data = JSON.parse(fs.readFileSync('data.json'));
 
+// Allow express to use the 'public' folder
+app.use(express.static('public'));
+
+// Read JSON data from HTML POST requests
+app.use(bodyParser.json());
+
+// Use ejs to render html templates in 'views'
+app.set('view engine', 'ejs');
+
+// Setup Google Auth
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Store user session data
 app.use(session({
     secret: 'ohnose!',
     resave: false,
     saveUninitialized: false
 }));
-app.set('view engine', 'ejs');
-app.use(express.static('public'));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(bodyParser.json());
 
 passport.serializeUser(function(user, callback) {
     callback(null, user);
